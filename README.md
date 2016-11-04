@@ -12,19 +12,19 @@ License: same as whatever license rancid version 3 uses
 
 1.   Make sure that it is executable:
      
-         chmod +x /usr/local/libexec/rancid/fnrancid-scp
+        chmod +x /usr/local/libexec/rancid/fnrancid-scp
 
 1.   Edit the file rancid.types.conf (located in /etc/rancid or /usr/local/etc/rancid) and add the following line:
      
-         fortiscp;script;fnrancid-scp
+        fortiscp;script;fnrancid-scp
 
 1.   Make sure that you have user and password stored in ~rancid/.cloginrc:
 
-         add user       myhostname.mydomain   {admin}
-         add password   myhostname.mydomain   {mypassword}
+        add user       myhostname.mydomain   {admin}
+        add password   myhostname.mydomain   {mypassword}
 
      (note that hostname matching with wildcards doesn't work here, so put your full hostname in .cloginrc)
 
 1.   Add your devices to router.db and use the type 'fortiscp'. For example:
 
-         myhostname.mydomain;fortiscp;up
+        myhostname.mydomain;fortiscp;up
