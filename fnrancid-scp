@@ -3,7 +3,6 @@
 # Copy Fortigate configuration with scp and store it with rancid.
 #
 # Writted by David Schweikert, 2016-11-03
-# Copyright (c) 2016, Flynt AG, Switzerland
 # License: same as rancid version 3 (BSD-style)
 #
 # Note: for this to work you need to enable scp on the Fortinet device:

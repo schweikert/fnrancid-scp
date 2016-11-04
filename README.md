@@ -2,8 +2,6 @@
 
 Rancid support for Fortinet devices using the scp interface.
 
-Copyright (c) 2016, Flynt AG, Switzerland
-
 License: same as whatever license rancid version 3 uses
 
 ## Installation
