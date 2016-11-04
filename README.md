@@ -8,6 +8,12 @@ License: same as whatever license rancid version 3 uses
 
 ## Installation
 
+1.   Enable scp on your Fortinet devices:
+
+        config system global
+           set admin-scp enable
+        end
+
 1.   Copy the 'fnrancid-scp' script to the location where the other rancid scripts
      are located. On FreeBSD it is /usr/local/libexec/rancid.
 
