@@ -3,10 +3,11 @@
 # Copy Fortigate configuration with scp and store it with rancid.
 #
 # Writted by David Schweikert, 2016-11-03
+# Extened by Alex Sokolov, 2023-03-07
 # License: same as rancid version 3 (BSD-style)
 #
 # Note: for this to work you need to enable scp on the Fortinet device:
-# 
+#
 #    config system global
 #       set admin-scp enable
 #    end
@@ -25,7 +26,11 @@ usage() {
 # 1. the host can be matched without wildcards in the .cloginrc file
 # 2. the password is enclosed in curly braces
 get_password() {
-	PASSWORD=`perl -ne "/^add\\s+password\\s+\\Q$1\\E\\s+{(.*)}/ and print \"\\\$1\"" $HOME/.cloginrc`
+	PASSWORD=`perl -ne "/^add\\s+password\\s+\\Q$1\\E\\s+{(.*)}\\s*{(.*)}$/ and print \"\\\$1\"" $HOME/.cloginrc`
+}
+
+get_user() {
+	USERNAME=`perl -ne "/^add\\s+user\\s+\\Q$1\\E\\s+(.*)/ and print \"\\\$1\"" $HOME/.cloginrc`
 }
 
 if [ -z "$ARG_HOST" ]; then
@@ -33,10 +38,11 @@ if [ -z "$ARG_HOST" ]; then
 fi
 
 get_password $ARG_HOST
+get_user $ARG_HOST
 
-expect -c "  
+expect -c "
    set timeout 10
-   spawn scp admin@$ARG_HOST:fgt-config $ARG_FILE
+   spawn scp -O $USERNAME@$ARG_HOST:fgt-config $ARG_FILE
    expect password: { send \"$PASSWORD\n\" }
    expect eof
 "
