@@ -45,3 +45,11 @@ expect -c "
    expect password: { send \"$PASSWORD\n\" }
    expect eof
 "
+
+if [ -r "${ARG_FILE}" ]; then
+    sed -E -i \
+        -e 's/^(.*) ENC .*$/\1 ENC <removed>/g' \
+        -e '/^.*set private-key.*$/,/^-----END ENCRYPTED PRIVATE KEY-----".*$/{/set private-key/ s/^(.*set private-key).*/\1 "<removed>"/; t; d}' \
+        -e '/^.*set certificate.*$/,/^-----END CERTIFICATE-----".*$/{/set certificate/ s/^(.*set certificate).*/\1 "<removed>"/; t; d}' \
+        "${ARG_FILE}"
+fi
